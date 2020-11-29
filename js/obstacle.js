@@ -23,14 +23,6 @@ this.game.context.drawImage(this.img, this.width*this.spriteX, this.height*this.
 
 if (this.spriteX < 10) this.spriteX++
 else this.spriteX=0
-    // if(this.y>this.radius && this.y<=canvas.height-this.radius){
-    // this.game.context.fillStyle = "green";
-    // this.game.context.beginPath();
-    // this.game.context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-    // this.game.context.fill();
-    // this.game.context.closePath();
-    // this.game.context.stroke();
-    // }
 
   }
 

@@ -11,6 +11,7 @@ class Game {
     this.score = 0;
     this.lives = 3;
     this.over = false;
+    this.didColide = false;
     this.gamespeed = 3;
     this.BG = {
       x1: 0,
@@ -50,7 +51,7 @@ class Game {
 
     this.context.drawImage(this.BG.image4.img,this.BG.x1,this.BG.y,this.BG.width, this.BG.height);
     this.context.drawImage(this.BG.image4.img,this.BG.x2,this.BG.y,this.BG.width,this.BG.height);
-    
+
 this.BG.image5.img = new Image();this.BG.image5.img.src = "./images/Mountain/candies/layer05_rocks.png";
 
     this.context.drawImage(this.BG.image5.img,this.BG.x1,this.BG.y,this.BG.width, this.BG.height);
@@ -118,19 +119,23 @@ this.BG.image5.img = new Image();this.BG.image5.img.src = "./images/Mountain/can
         this.obstacleArray.splice(i, 1);
       }
     });
+
     for (let i = 0; i < this.obstacleArray.length; i++) {
-      if (
-        this.obstacleArray[i].distance <
-        this.obstacleArray[i].radius + this.player.radius
+      if (this.obstacleArray[i].distance < this.obstacleArray[i].radius + this.player.radius
       ) {
         // (console.log('collison'));
         if (!this.obstacleArray[i].counted) this.lives--;
         this.obstacleArray[i].counted = true;
+        this.didColide = true;
+
+
       }
+
       if (this.lives === 0) {
         this.gameOver();
       }
     }
+    
   }
 
   gameOver() {
@@ -169,32 +174,7 @@ this.BG.image5.img = new Image();this.BG.image5.img.src = "./images/Mountain/can
     this.context.fillText("game over", 200, 100);
   }
 
-  // init() {
-  //   this.canvas = document.getElementById("canvas");
-  //   this.context = this.canvas.getContext("2d");
-
-  //   this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-  //   this.createBackground();
-
-  //   this.player.drawPlayer();
-  //   this.player.move();
-
-  //   this.movingBubbles();
-  //   this.movingObstacles();
-
-  //   this.context.fillStyle = "black";
-  //   this.context.fillText("score: " + this.score, 10, 50);
-  //   this.context.fillStyle = "red";
-  //   this.context.fillText("lives: " + this.lives, 10, 80);
-
-  //   this.frame++;
-  //   if (this.frame % 2) this.player.frameX === 0;
-
-  //   if (this.over === false) {
-  //     requestAnimationFrame(() => this.init());
-  //   }
-  // }
+ 
 
   init() {
     this.canvas = document.getElementById("canvas");
@@ -208,11 +188,13 @@ this.BG.image5.img = new Image();this.BG.image5.img.src = "./images/Mountain/can
        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
        this.createBackground();
 
-       this.player.drawPlayer();
-       this.player.move();
+ 
 
        this.movingBubbles();
        this.movingObstacles();
+
+      this.player.drawPlayer();
+       this.player.move();
 
        this.context.fillStyle = "black";
        this.context.fillText("score: " + this.score, 10, 50);

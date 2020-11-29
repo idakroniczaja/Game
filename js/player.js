@@ -21,11 +21,23 @@ drawPlayer(){
   // this.game.context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
   // this.game.context.fill();
   // this.game.context.closePath();
+  // this.obstacleArray[i].distance <
+  //   this.obstacleArray[i].radius + this.player.radius;
 
- this.playerImg.src = './images/Bird/fly/spritesheet.png'
- this.game.context.drawImage(this.playerImg, this.frameX * this.spriteWidth, 0, this.spriteWidth, this.spriteHeight, this.x-75, this.y-45, this.width, this.height);
 
-}
+
+  if (this.game.didColide === true ) {
+   this.playerImg.src = "./images/Bird/got hit/collision.png";
+   this.game.didColide=false
+  } else this.playerImg.src = "./images/Bird/fly/spritesheet.png";
+
+
+  
+this.game.context.drawImage(this.playerImg, this.frameX * this.spriteWidth, 0, this.spriteWidth, this.spriteHeight, this.x-75, this.y-45, this.width, this.height);
+
+
+
+};
 
 move(){
   //  document.addEventListener("keydown", (event) => {
