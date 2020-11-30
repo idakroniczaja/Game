@@ -3,6 +3,8 @@ class Player {
     this.game = game;
     this.x = canvas.width/2;
     this.y = canvas.height /2;
+    this.mouseX;
+    this.mouseY;
     this.radius = 50;
     this.spriteWidth = 715;
     this.spriteHeight = 543;
@@ -11,32 +13,21 @@ class Player {
     this.playerImg = new Image();
     this.frameX = 0;
   
-
   }
 
 
 drawPlayer(){
-  // this.game.context.fillStyle = "red";
-  // this.game.context.beginPath();
-  // this.game.context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-  // this.game.context.fill();
-  // this.game.context.closePath();
-  // this.obstacleArray[i].distance <
-  //   this.obstacleArray[i].radius + this.player.radius;
+
+ if (this.game.didColide === true) {
+  this.playerImg.src = "./images/Bird/got hit/collision.png";
+   this.game.didColide=false;
+  } else if (this.x >= this.mouseX) {
+this.playerImg.src = "./images/Bird/fly/spritesheet3.png";
+  } else  this.playerImg.src = "./images/Bird/fly/spritesheet.png";
 
 
-
-  if (this.game.didColide === true ) {
-   this.playerImg.src = "./images/Bird/got hit/collision.png";
-   this.game.didColide=false
-  } else this.playerImg.src = "./images/Bird/fly/spritesheet.png";
-
-
-  
-this.game.context.drawImage(this.playerImg, this.frameX * this.spriteWidth, 0, this.spriteWidth, this.spriteHeight, this.x-75, this.y-45, this.width, this.height);
-
-
-
+    this.game.context.drawImage(this.playerImg, this.frameX * this.spriteWidth, 0, this.spriteWidth, this.spriteHeight, this.x - 75, this.y - 45, this.width, this.height
+    );
 };
 
 move(){
@@ -66,19 +57,19 @@ move(){
    document.addEventListener("mousedown", (event) => {
      let canvasPosition = this.game.canvas.getBoundingClientRect();
 
-     let mouseX = event.x - canvasPosition.left;
-     let mouseY = event.y - canvasPosition.top;
+     this.mouseX = event.x - canvasPosition.left;
+     this.mouseY = event.y - canvasPosition.top;
      //  console.log(mouseX, mouseY);
 
-     const dx = this.x - mouseX;
-     const dy = this.y - mouseY;
+     const dx = this.x -this. mouseX;
+     const dy = this.y - this.mouseY;
      //  console.log(dx,dy)
 
-     if (mouseX != this.x){
-       this.x -= dx/100;
+     if (this.mouseX != this.x){
+       this.x -= dx/50;
      }
-     if (mouseY !=this.y){
-       this.y -= dy/100;
+     if (this.mouseY !=this.y){
+       this.y -= dy/50;
      }
 
    });

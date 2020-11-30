@@ -39,6 +39,7 @@ class Bubble {
     // this.game.context.closePath();
     // this.game.context.stroke();
     // }
+    if (this.x > 20 && this.x < canvas.width-this.radius)
      this.game.context.drawImage(this.img,this.width * this.spriteX, this.height * this.spriteY, this.width, this.height,this.x - 40, this.y - 40, this.width / 7,this.height / 7);
   }
 
