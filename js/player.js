@@ -19,40 +19,29 @@ class Player {
 drawPlayer(){
 
  if (this.game.didColide === true) {
-  this.playerImg.src = "./images/Bird/got hit/collision.png";
-   this.game.didColide=false;
-  } else if (this.x >= this.mouseX) {
-this.playerImg.src = "./images/Bird/fly/spritesheet3.png";
-  } else  this.playerImg.src = "./images/Bird/fly/spritesheet.png";
 
-
+   this.playerImg.src = "./images/Bird/got hit/collision.png";
+   this.game.didColide = false;
+ } else if (this.x >= this.mouseX) {
+  
+   this.playerImg.src = "./images/Bird/fly/spritesheet3.png";
+ } else 
+  this.playerImg.src = "./images/Bird/fly/spritesheet.png";
     this.game.context.drawImage(this.playerImg, this.frameX * this.spriteWidth, 0, this.spriteWidth, this.spriteHeight, this.x - 75, this.y - 45, this.width, this.height
     );
+
+ if (this.game.bubble.didColide === true) {
+  this.width+=3;
+  this.height+=3;
+  this.radius+=2;
+this.game.bubble.didColide = false;
+ }
+
 };
 
+
+
 move(){
-  //  document.addEventListener("keydown", (event) => {
-  //    console.log(this.x)
-  //    switch (event.code) {
-  //      case "ArrowLeft":
-  //     if (this.x >0+this.radius) this.x -= 1;
-  //        break;
-  //      case "ArrowRight":
-  //        if (this.x<canvas.width-this.radius ) this.x +=1;
-  //        break;
-  //      case "ArrowUp":
-  //         if (this.y > 0 + this.radius) this.y -= 1;
-  //        break;
-  //      case "ArrowDown":
-  //     if (this.y < canvas.height-this.radius) this.y += 1;
-  //        break;
-  //      default:
-  //        console.log("You can use only arrows!");
-  //    }
-  //  });
-
-
-
 
    document.addEventListener("mousedown", (event) => {
      let canvasPosition = this.game.canvas.getBoundingClientRect();

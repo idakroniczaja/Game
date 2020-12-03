@@ -6,13 +6,36 @@
   <title>Game</title>
  <link rel="stylesheet" href="styles.css" />
 </head>
-<body></body>
-  <canvas id='canvas' width="1200" height="800"></canvas>
+
+<body>
+
+<div id='intro'>
+<div id='images'>
+  <img id='bird' src ='../game New/images/Bird/fly/fly.gif'>
+<img id='doughnut' src ='../game New/images/donuts/pink_icing_sprinkles.png'>
+</div>  
+  
+<div id='text'>
+    <h1>Welcome to the “Chubby bird”!</h1>
+  <p> <img src='../game New/images/donuts/green_icing_green_sprinkles.png'>In order to win the game, you have to eat 30 doughnuts while avoiding bad monsters coming your way. If you stumble upon one of the monsters, you lose one of 3 lives. The game is over when you lose all 3 lives. </p>
+ <p><img src='../game New/images/donuts/orange_icing_chocolate_shaving.png'>Sounds easy, right? That's where you'r wrong, my friend! You know you can't get away with eating doughnuts and stay slim!</p>
+<p><img src='../game New/images/donuts/chocolate_icing_chocolate_drizzle.png'>So, be careful, because with each doughtnut you eat, you put some weight on and become bigger and bigger, what makes avoiding enemies harder and harder.</p>
+ <p id="try">Are you ready to try?</p>
+    <button>Start game</button>
+</div>
+
+</div>
+
+<img id='gameOver' src="./images/game-button-clipart-10-Transparent-Images.png" alt="Play again" width="200" height="200"> 
+
+<canvas id='canvas' width="1200" height="800"></canvas>
 
   <script src='js/game.js'></script> 
     <script src='js/obstacle.js'></script>
   <script src='js/bubble.js'></script>
  <script src='js/player.js'></script>
 <script src='js/script.js'></script>
+
 </body>
+
 </html>

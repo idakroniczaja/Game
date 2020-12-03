@@ -13,6 +13,8 @@ class Game {
     this.over = false;
     this.didColide = false;
     this.gamespeed = 3;
+    this.sound = document.createElement("audio");  
+
     this.BG = {
       x1: 0,
       x2: canvas.width,
@@ -37,7 +39,50 @@ class Game {
     };
   }
 
+  init() {
+     const intro = document.getElementById("intro");
+     intro.style.visibility = "hidden";
+
+    this.canvas = document.getElementById("canvas");
+    this.context = this.canvas.getContext("2d");
+
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.createBackground();
+
+    const interval = setInterval(() => {
+      this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+
+      this.createBackground();
+
+      this.movingBubbles();
+      this.movingObstacles();
+  
+      this.player.drawPlayer();
+      this.player.move();
+  
+
+  
+      this.frame++;
+
+      if (this.score % 5 === 0) {
+        this.obstacle.speed += 1;
+      }
+
+      if (this.lives === 0) {
+        clearInterval(interval);
+        this.gameOver();
+      }
+
+      if (this.score === 30) {
+        clearInterval(interval);
+        this.gameWin();
+      }
+    }, 1000 / 20);
+  }
+
   createBackground() {
+
     if (this.BG.x1 <= -this.BG.width + this.gamespeed)
       this.BG.x1 = this.BG.width;
     else this.BG.x1 -= this.gamespeed;
@@ -46,37 +91,101 @@ class Game {
       this.BG.x2 = this.BG.width;
     else this.BG.x2 -= this.gamespeed;
 
-  this.BG.image4.img = new Image();
+    this.BG.image4.img = new Image();
     this.BG.image4.img.src = "./images/Mountain/candies/layer04_clouds.png";
 
-    this.context.drawImage(this.BG.image4.img,this.BG.x1,this.BG.y,this.BG.width, this.BG.height);
-    this.context.drawImage(this.BG.image4.img,this.BG.x2,this.BG.y,this.BG.width,this.BG.height);
+    this.context.drawImage(
+      this.BG.image4.img,
+      this.BG.x1,
+      this.BG.y,
+      this.BG.width,
+      this.BG.height
+    );
+    this.context.drawImage(
+      this.BG.image4.img,
+      this.BG.x2,
+      this.BG.y,
+      this.BG.width,
+      this.BG.height
+    );
 
-this.BG.image5.img = new Image();this.BG.image5.img.src = "./images/Mountain/candies/layer05_rocks.png";
+    this.BG.image5.img = new Image();
+    this.BG.image5.img.src = "./images/Mountain/candies/layer05_rocks.png";
 
-    this.context.drawImage(this.BG.image5.img,this.BG.x1,this.BG.y,this.BG.width, this.BG.height);
-    this.context.drawImage(this.BG.image5.img,this.BG.x2,this.BG.y,this.BG.width,this.BG.height);
+    this.context.drawImage(
+      this.BG.image5.img,
+      this.BG.x1,
+      this.BG.y,
+      this.BG.width,
+      this.BG.height
+    );
+    this.context.drawImage(
+      this.BG.image5.img,
+      this.BG.x2,
+      this.BG.y,
+      this.BG.width,
+      this.BG.height
+    );
 
     this.BG.image1.img = new Image();
-    this.BG.image1.img.src ="./images/Mountain/candies/layer01_ground.png";
+    this.BG.image1.img.src = "./images/Mountain/candies/layer01_ground.png";
 
-    this.context.drawImage(this.BG.image1.img, this.BG.x1,this.BG.y,this.BG.width,this.BG.height );
-    this.context.drawImage(this.BG.image1.img,this.BG.x2,this.BG.y,this.BG.width, this.BG.height );
+    this.context.drawImage(
+      this.BG.image1.img,
+      this.BG.x1,
+      this.BG.y,
+      this.BG.width,
+      this.BG.height
+    );
+    this.context.drawImage(
+      this.BG.image1.img,
+      this.BG.x2,
+      this.BG.y,
+      this.BG.width,
+      this.BG.height
+    );
 
-        this.BG.image3.img = new Image();
+    this.BG.image3.img = new Image();
     this.BG.image3.img.src = "./images/Mountain/candies/layer03_trees.png";
 
-    this.context.drawImage(this.BG.image3.img,this.BG.x1,this.BG.y,this.BG.width, this.BG.height);
-    this.context.drawImage(this.BG.image3.img,this.BG.x2,this.BG.y,this.BG.width,this.BG.height);
+    this.context.drawImage(
+      this.BG.image3.img,
+      this.BG.x1,
+      this.BG.y,
+      this.BG.width,
+      this.BG.height
+    );
+    this.context.drawImage(
+      this.BG.image3.img,
+      this.BG.x2,
+      this.BG.y,
+      this.BG.width,
+      this.BG.height
+    );
 
     this.BG.image2.img = new Image();
     this.BG.image2.img.src = "./images/Mountain/candies/layer02_cake.png";
 
-    this.context.drawImage(this.BG.image2.img,this.BG.x1,this.BG.y,this.BG.width, this.BG.height);
-    this.context.drawImage(this.BG.image2.img,this.BG.x2,this.BG.y,this.BG.width,this.BG.height);
+    this.context.drawImage(
+      this.BG.image2.img,
+      this.BG.x1,
+      this.BG.y,
+      this.BG.width,
+      this.BG.height
+    );
+    this.context.drawImage(
+      this.BG.image2.img,
+      this.BG.x2,
+      this.BG.y,
+      this.BG.width,
+      this.BG.height
+    );
 
-
-
+    this.context.font = '25px Arial'
+      this.context.fillStyle = "#B30F7A";
+      this.context.fillText("score: " + this.score, 10, 50);
+      this.context.fillStyle = "brown";
+      this.context.fillText("lives: " + this.lives, 10, 80);
 
   }
 
@@ -100,8 +209,11 @@ this.BG.image5.img = new Image();this.BG.image5.img.src = "./images/Mountain/can
         this.bubblesArray[i].radius + this.player.radius
       ) {
         if (!this.bubblesArray[i].counted) {
+          this.sound.src = "./sounds/point.wav";
+           this.sound.play();
           this.score++;
           this.bubblesArray[i].counted = true;
+          this.bubble.didColide = true;
           this.bubblesArray.splice(i, 1);
         }
       }
@@ -121,42 +233,60 @@ this.BG.image5.img = new Image();this.BG.image5.img.src = "./images/Mountain/can
     });
 
     for (let i = 0; i < this.obstacleArray.length; i++) {
-      if (this.obstacleArray[i].distance < this.obstacleArray[i].radius + this.player.radius
+      if (
+        this.obstacleArray[i].distance <
+        this.obstacleArray[i].radius + this.player.radius
       ) {
         // (console.log('collison'));
-        if (!this.obstacleArray[i].counted) this.lives--;
-        this.obstacleArray[i].counted = true;
+       
+        if (!this.obstacleArray[i].counted) 
+        
+        this.lives--;  
+      
+        this.obstacleArray[i].counted = true;  
         this.didColide = true;
-
-
-      }
-
-      if (this.lives === 0) {
-        this.gameOver();
+          this.sound.src = "./sounds/collision.ogg";
+         this.sound.play();
       }
     }
-    
   }
 
   gameOver() {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-    //set background
-    this.context.fillStyle = "black";
-    this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    const background = {
+      x: 0,
+      y: 0,
+      width: this.canvas.width,
+      height: this.canvas.height,
+      img: undefined,
+    };
+
+    background.img = new Image();
+    background.img.src = `./images/Mountain/layer06_sky.png`;
+
+    background.img.addEventListener("load", () => {
+      this.context.drawImage(
+        background.img,
+        background.x,
+        background.y,
+        background.width,
+        background.height
+      );
+    });
 
     const newImg = {
-      x: this.canvas.width / 2,
-      y: this.canvas.height / 2,
-      width: 150,
-      height: 150,
+      x: 400,
+      y: 100,
+      width: 400,
+      height: 400,
       img: undefined,
     };
 
     newImg.img = new Image();
-    newImg.img.src = `./images/fish-left - Copy.png`;
+    newImg.img.src = `./images/game_over_PNG18.png`;
 
-
+    newImg.img.addEventListener("load", () => {
       this.context.drawImage(
         newImg.img,
         newImg.x,
@@ -164,53 +294,64 @@ this.BG.image5.img = new Image();this.BG.image5.img.src = "./images/Mountain/can
         newImg.width,
         newImg.height
       );
+    });
+
+const button = document.getElementById('gameOver');
+button.style.visibility = "visible";
+
+button.addEventListener('click', ()=>{
+    button.style.visibility = "hidden";
+     myGame = new Game();
+      myGame.init()
     
 
-    this.over = true;
-    //put some text game over
+}   )
 
-    this.context.font = "70px";
-    this.context.fillStyle = "red";
-    this.context.fillText("game over", 200, 100);
-  }
-
- 
-
-  init() {
-    this.canvas = document.getElementById("canvas");
-    this.context = this.canvas.getContext("2d");
-
-  this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-  this.createBackground();
-
-
-     setInterval(() => {
-       this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-       this.createBackground();
-
- 
-
-       this.movingBubbles();
-       this.movingObstacles();
-
-      this.player.drawPlayer();
-       this.player.move();
-
-       this.context.fillStyle = "black";
-       this.context.fillText("score: " + this.score, 10, 50);
-       this.context.fillStyle = "red";
-       this.context.fillText("lives: " + this.lives, 10, 80);
-
-       this.frame++;
-
-     }, 1000 / 20);
-
-
-
+ this.sound.src = "./sounds/gameOver.wav";
+ this.sound.play();
 
   }
-  
+
+  gameWin() {
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+this.context.fillStyle = '#f9f6f6'
+this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+
+    const newImg = {
+      x:200,
+      y: 0,
+      width: 800,
+      height: 600,
+      img: undefined,
+    };
+
+    newImg.img = new Image();
+    newImg.img.src = `./images/169-1699685_transparent-well-done-png.jpg`;
+
+    newImg.img.addEventListener("load", () => {
+      this.context.drawImage(
+        newImg.img,
+        newImg.x,
+        newImg.y,
+        newImg.width,
+        newImg.height
+      );
+    });
+
+    const button = document.getElementById("gameOver");
+    button.style.visibility = "visible";
+
+    button.addEventListener("click", () => {
+      button.style.visibility = "hidden";
+      myGame = new Game();
+      myGame.init();
+    });
+
+ this.sound.src = './sounds/Jingle_Win_00.mp3';
+ this.sound.play();
+
+
+  }
 }
-
-
-
