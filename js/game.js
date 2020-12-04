@@ -192,22 +192,19 @@ class Game {
   movingBubbles() {
     if (this.frame % 20 == 0) {
       this.bubblesArray.push(new Bubble(this));
+
     }
     this.bubblesArray.forEach((bubble, i) => {
       bubble.drawBubble();
       bubble.move();
-      if (this.bubble.y < 0) {
+         if (this.bubblesArray[i].y > this.canvas.height) {
+           this.score--;
         this.bubblesArray.splice(i, 1);
       }
     });
+    // console.log(this.bubblesArray.length);
     for (let i = 0; i < this.bubblesArray.length; i++) {
-      if (this.bubblesArray[i].y < 0 - this.radius * 2) {
-        this.bubblesArray.splice(i, 1);
-      }
-      if (
-        this.bubblesArray[i].distance <
-        this.bubblesArray[i].radius + this.player.radius
-      ) {
+      if ( this.bubblesArray[i].distance <this.bubblesArray[i].radius + this.player.radius) {
         if (!this.bubblesArray[i].counted) {
           this.sound.src = "./sounds/point.wav";
            this.sound.play();
@@ -217,7 +214,10 @@ class Game {
           this.bubblesArray.splice(i, 1);
         }
       }
+     
     }
+
+    
   }
 
   movingObstacles() {
@@ -227,26 +227,26 @@ class Game {
     this.obstacleArray.forEach((obstacle, i) => {
       obstacle.drawObstacle();
       obstacle.move();
-      if (this.obstacle.x < 0) {
-        this.obstacleArray.splice(i, 1);
-      }
+    
     });
 
+
     for (let i = 0; i < this.obstacleArray.length; i++) {
+      if (this.obstacleArray[i].x < 0) {
+        this.obstacleArray.splice(i, 1);
+      }
+      //  console.log(this.obstacleArray.length);
       if (
         this.obstacleArray[i].distance <
         this.obstacleArray[i].radius + this.player.radius
       ) {
         // (console.log('collison'));
-       
-        if (!this.obstacleArray[i].counted) 
-        
-        this.lives--;  
-      
-        this.obstacleArray[i].counted = true;  
+
+        if (!this.obstacleArray[i].counted) this.lives--;
+        this.obstacleArray[i].counted = true;
         this.didColide = true;
-          this.sound.src = "./sounds/collision.ogg";
-         this.sound.play();
+        this.sound.src = "./sounds/collision.ogg";
+        this.sound.play();
       }
     }
   }
@@ -301,8 +301,8 @@ button.style.visibility = "visible";
 
 button.addEventListener('click', ()=>{
     button.style.visibility = "hidden";
-     myGame = new Game();
-      myGame.init()
+    //  myGame = new Game();
+    //   myGame.init()
     
 
 }   )
@@ -345,8 +345,8 @@ this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
     button.addEventListener("click", () => {
       button.style.visibility = "hidden";
-      myGame = new Game();
-      myGame.init();
+      // myGame = new Game();
+      // myGame.init();
     });
 
  this.sound.src = './sounds/Jingle_Win_00.mp3';

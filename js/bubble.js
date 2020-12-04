@@ -13,7 +13,7 @@ class Bubble {
     this.height = 461;  
 
  
-    this.speed = Math.random() * 15+2;
+    this.speed = Math.random() * 15+3;
     this.distance ;//distance between each bubble and player
     this.counted = false; //for adding only one poin for each bubble 
 
@@ -26,7 +26,7 @@ class Bubble {
 
 
   drawBubble() {
-    if (this.x > 20 && this.x < canvas.width-this.radius)
+    if (this.x > this.radius+5 && this.x < canvas.width-this.radius)
      this.game.context.drawImage(this.img,this.width * this.spriteX, this.height * this.spriteY, this.width, this.height,this.x - 40, this.y - 40, this.width / 7,this.height / 7);
   }
 
