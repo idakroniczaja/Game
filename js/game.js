@@ -236,12 +236,8 @@ class Game {
         this.obstacleArray.splice(i, 1);
       }
       //  console.log(this.obstacleArray.length);
-      if (
-        this.obstacleArray[i].distance <
-        this.obstacleArray[i].radius + this.player.radius
-      ) {
+      if (this.obstacleArray[i].distance <this.obstacleArray[i].radius + this.player.radius ) {
         // (console.log('collison'));
-
         if (!this.obstacleArray[i].counted) this.lives--;
         this.obstacleArray[i].counted = true;
         this.didColide = true;
@@ -253,8 +249,7 @@ class Game {
 
   gameOver() {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-    const background = {
+     const background = {
       x: 0,
       y: 0,
       width: this.canvas.width,
@@ -266,13 +261,7 @@ class Game {
     background.img.src = `./images/Mountain/layer06_sky.png`;
 
     background.img.addEventListener("load", () => {
-      this.context.drawImage(
-        background.img,
-        background.x,
-        background.y,
-        background.width,
-        background.height
-      );
+      this.context.drawImage(background.img, background.x, background.y, background.width, background.height);
     });
 
     const newImg = {
@@ -287,13 +276,7 @@ class Game {
     newImg.img.src = `./images/game_over_PNG18.png`;
 
     newImg.img.addEventListener("load", () => {
-      this.context.drawImage(
-        newImg.img,
-        newImg.x,
-        newImg.y,
-        newImg.width,
-        newImg.height
-      );
+      this.context.drawImage(newImg.img, newImg.x, newImg.y, newImg.width, newImg.height);
     });
 
 const button = document.getElementById('gameOver');
@@ -301,9 +284,6 @@ button.style.visibility = "visible";
 
 button.addEventListener('click', ()=>{
     button.style.visibility = "hidden";
-    //  myGame = new Game();
-    //   myGame.init()
-    
 
 }   )
 
@@ -331,13 +311,7 @@ this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
     newImg.img.src = `./images/169-1699685_transparent-well-done-png.jpg`;
 
     newImg.img.addEventListener("load", () => {
-      this.context.drawImage(
-        newImg.img,
-        newImg.x,
-        newImg.y,
-        newImg.width,
-        newImg.height
-      );
+      this.context.drawImage( newImg.img,  newImg.x,  newImg.y,  newImg.width, newImg.height);
     });
 
     const button = document.getElementById("gameOver");
@@ -345,8 +319,6 @@ this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
     button.addEventListener("click", () => {
       button.style.visibility = "hidden";
-      // myGame = new Game();
-      // myGame.init();
     });
 
  this.sound.src = './sounds/Jingle_Win_00.mp3';

@@ -19,11 +19,9 @@ class Player {
 drawPlayer(){
 
  if (this.game.didColide === true) {
-
    this.playerImg.src = "./images/Bird/got hit/collision.png";
    this.game.didColide = false;
  } else if (this.x >= this.mouseX) {
-  
    this.playerImg.src = "./images/Bird/fly/spritesheet3.png";
  } else 
   this.playerImg.src = "./images/Bird/fly/spritesheet.png";
@@ -55,22 +53,26 @@ move(){
       // console.log(dx,dy)
 
  if (this.mouseX != this.x)  {
-       this.x -= dx/50;
-       if(this.x < this.radius){
+       this.x -= dx/30;{
+           if(this.x < this.radius){
          this.x = this.radius + 10
        }else if (this.x > canvas.width-this.radius)
        {this.x = canvas.width - this.radius - 10
       }
+       }
+     
      }
 
 
      if (this.mouseY !=this.y){
-       this.y -= dy/50;
-       if(this.y < this.radius){
+       this.y -= dy/30;{
+                if(this.y < this.radius){
          this.y = this.radius -10
        }else if (this.y>canvas.height-this.radius){
          this.y = canvas.height - this.radius-3
        }
+       }
+
      
 }
 
